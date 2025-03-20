@@ -8,8 +8,15 @@
     @vite(['resources/ts/app.ts', 'resources/css/app.css'])
 </head>
 <body>
-    <h1 class="text-3xl font-bold text-red-500">
-        Hello World!
-    </h1>
+    <div class="container max-w-screen-lg mx-auto">
+    </div>
+    <div class="flex justify-center space-x-4 max-w-screen-lg mx-auto my-5">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 disabled:bg-gray-400" id="prevButton" disabled>
+            Previous
+        </button>
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200" id="nextButton">
+            Next
+        </button>
+    </div>
 </body>
 </html>
