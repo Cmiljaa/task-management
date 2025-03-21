@@ -3,6 +3,7 @@ console.log("It's working!");
 const API_URl = 'http://127.0.0.1:8000/api/task';
 
 const containerDiv = document.querySelector('.container');
+const spinner = document.querySelector('.spinner') as HTMLElement;
 
 const task = async (taskid?: number, method: string = 'GET', body?: object) => {
     try {
@@ -32,3 +33,12 @@ const task = async (taskid?: number, method: string = 'GET', body?: object) => {
         console.log(`An error occured: ${error}`);
     }
 };
+
+window.addEventListener('load', async () => {
+    let tasks = await task();
+
+    if (spinner) {
+        spinner.style.display = 'none';
+    }
+
+});
