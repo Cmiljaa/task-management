@@ -4,6 +4,24 @@ const API_URl = 'http://127.0.0.1:8000/api/task';
 
 const containerDiv = document.querySelector('.container');
 const spinner = document.querySelector('.spinner') as HTMLElement;
+let prevPageBtn: HTMLButtonElement;
+let nextPageBtn: HTMLButtonElement;
+
+interface Task {
+    id: number;
+    title: string;
+    description: string;
+    status: string;
+}
+
+interface TaskInfo extends Task {
+    user: {
+        name: string;
+        email: string;
+    };
+}
+
+let currentPage = 1;
 
 const task = async (taskid?: number, method: string = 'GET', body?: object) => {
     try {
@@ -37,8 +55,7 @@ const task = async (taskid?: number, method: string = 'GET', body?: object) => {
 window.addEventListener('load', async () => {
     let tasks = await task();
 
-    if (spinner) {
-        spinner.style.display = 'none';
-    }
+    renderSpinner();
 
 });
+const renderSpinner = () => spinner?.classList.toggle('hidden');

@@ -9,10 +9,11 @@
 </head>
 <body>
 
+    <div class="flex justify-center items-center h-screen spinner">
+        <img src="/25.gif" alt="Loading...">
+    </div>
     <div class="container max-w-screen-lg mx-auto mt-4">
-        <div class="flex justify-center items-center h-screen spinner">
-            <img src="/25.gif" alt="Loading...">
-        </div>
+        
     </div>
 </body>
 </html>
