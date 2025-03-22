@@ -11,7 +11,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        return Task::paginate(5);
+        return Task::paginate(3);
     }
 
     public function store(TaskRequest $request)
@@ -21,7 +21,7 @@ class TaskController extends Controller
 
     public function show(Task $task)
     {
-        return $task;
+        return $task->load('user');
     }
 
     public function update(TaskRequest $request, Task $task)

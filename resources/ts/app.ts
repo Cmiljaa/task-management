@@ -111,3 +111,26 @@ const renderTasks = (tasks: any) => {
 };
 
 const renderSpinner = () => spinner?.classList.toggle('hidden');
+
+const paginationButtons = (tasks: any) => {
+    console.log(tasks);
+    prevPageBtn.disabled = !tasks.prev_page_url;
+    nextPageBtn.disabled = !tasks.next_page_url;
+
+    prevPageBtn.addEventListener('click', async () => {
+        if (currentPage > 1) currentPage--;
+
+        let pageTasks = await loadTasks(currentPage);
+        await renderTasks(pageTasks);
+        console.log(currentPage);
+    });
+
+    nextPageBtn.addEventListener('click', async () => {
+        currentPage++;
+
+        let pageTasks = await loadTasks(currentPage);
+        await renderTasks(pageTasks);
+        console.log(currentPage);
+    });
+};
+
