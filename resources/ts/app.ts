@@ -27,7 +27,7 @@ const renderSpinner = () => {
 };
 
 window.addEventListener('load', async () => {
-    let tasks = await task();
+    let tasks = await loadTasks();
 
     renderSpinner();
 
@@ -155,7 +155,10 @@ const renderTasks = (tasks: any) => {
     viewTasks();
 };
 
-const renderSpinner = () => spinner?.classList.toggle('hidden');
-
+const tasksPage = async () => {
+    renderSpinner();
+    let pageTasks = await loadTasks(currentPage);
+    renderSpinner();
+    await renderTasks(pageTasks);
+    console.log(currentPage);
 };
-
