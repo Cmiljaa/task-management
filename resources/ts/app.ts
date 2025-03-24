@@ -50,6 +50,9 @@ const task = async (taskid?: number, method: string = 'GET', body?: object) => {
     } catch (error) {
         console.log(`An error occured: ${error}`);
     }
+const renderSpinner = () => {
+    spinner?.classList.toggle('hidden');
+    containerDiv?.classList.toggle('hidden');
 };
 
 window.addEventListener('load', async () => {
