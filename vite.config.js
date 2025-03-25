@@ -10,7 +10,6 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/ts/app.ts',
             ],
-            refresh: true,
         }),
         tailwindcss(),
     ],
