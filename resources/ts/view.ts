@@ -94,3 +94,40 @@ export const displayTask = (taskInfo: TaskInfo) => {
     </div>`
     );
 };
+
+export const createTask = () => {
+    if (containerDiv) containerDiv.innerHTML = '';
+
+    containerDiv?.insertAdjacentHTML(
+        'beforeend',
+        `<div class="p-6 max-w-screen-lg mx-auto">
+    <button class="tasks inline-block px-4 py-2 text-sm rounded-md bg-blue-600 text-white mb-5 hover:bg-blue-700 transition duration-200">
+        Back to tasks
+    </button>
+    
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 transform transition-all hover:shadow-xl border-2">
+        <div class="p-6">
+
+            <!-- Title Input -->
+            <label class="block text-gray-700 text-sm font-bold mt-4" for="task-title">Title</label>
+            <input id="task-title" type="text" class="w-full border border-gray-300 rounded-md p-2 mt-1" value="" />
+
+            <!-- Description Input -->
+            <label class="block text-gray-700 text-sm font-bold mt-4" for="task-desc">Description</label>
+            <textarea id="task-desc" class="w-full border border-gray-300 rounded-md p-2 mt-1"></textarea>
+
+            <!-- Status Select -->
+            <label class="block text-gray-700 text-sm font-bold mt-4" for="task-status">Status</label>
+            <select id="task-status" class="w-full border border-gray-300 rounded-md p-2 mt-1">
+                <option value="pending" selected>Pending</option>
+                <option value="completed">Completed</option>
+            </select>
+
+            <button id="save-task" class="w-full bg-green-600 text-white py-2 rounded-lg mt-4 hover:bg-green-700 transition duration-200">
+                Save Task
+            </button>
+        </div>
+    </div>
+</div>`
+    );
+};
