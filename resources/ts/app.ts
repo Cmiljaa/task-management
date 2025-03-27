@@ -48,7 +48,7 @@ export const setupPaginationButtons = (tasks: any) => {
 export const handleTaskClick = () => {
     document.querySelectorAll('.task-button')?.forEach((btn) => {
         const taskId = Number(
-            btn.closest('.p-6')?.querySelector('.id')?.textContent
+            btn.closest('.p-2')?.querySelector('.id')?.textContent
         );
 
         btn.addEventListener('click', async () => {

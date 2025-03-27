@@ -15,24 +15,24 @@ export const displayTasks = (tasks: any) => {
 
     console.log(tasks);
     tasks.data.forEach((task: Task) => {
-        let html = `<div class="p-3 max-w-screen-lg mx-auto">
+        let html = `<div class="p-2 max-w-screen-lg mx-auto">
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 transform transition-all hover:shadow-xl border-2">
                     <div class="p-6">
                         <div class="flex justify-between align-center items-center">
-                            <h3 class="text-2xl font-bold text-gray-800">Task <span class="id">${
+                            <h3 class="text-lg font-bold text-gray-800">Task <span class="id">${
                                 task.id
                             }</span> </h3>
                         <p class="text-gray-600 mt-2">${task.description}</p>
 
                             <div class="mt-4">
-                            <span class="inline-block px-4 py-2 text-sm font-semibold rounded-md bg-gray-500 text-white">${
+                            <span class="inline-block px-3 py-1 text-sm font-semibold rounded-md bg-gray-500 text-white">${
                                 task.status.charAt(0).toUpperCase() +
                                 task.status.slice(1)
                             }</span>
                             </div>
                         </div>
 
-                        <button class="task-button mt-4 cursor-pointer w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200">View Task</button>
+                        <button class="task-button mt-4 cursor-pointer w-full bg-blue-600 text-white py-1.5 text-sm rounded-lg hover:bg-blue-700 transition duration-200">View Task</button>
                     </div>
                 </div>
             </div>`;
