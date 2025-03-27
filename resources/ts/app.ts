@@ -1,5 +1,5 @@
 import { loadTasks, task } from '../ts/task';
-import { displayTask, toggleSpinner, displayTasks } from './view';
+import { displayTask, toggleSpinner, displayTasks, createTask } from './view';
 
 let prevPageBtn: HTMLButtonElement;
 let nextPageBtn: HTMLButtonElement;
@@ -61,6 +61,13 @@ export const handleTaskClick = () => {
                 .querySelector('.tasks')
                 ?.addEventListener('click', async () => fetchAndDisplayTasks());
         });
+    });
+
+    document.querySelector('.create-task')?.addEventListener('click', () => {
+        createTask();
+        document
+            .querySelector('.tasks')
+            ?.addEventListener('click', async () => fetchAndDisplayTasks());
     });
 };
 

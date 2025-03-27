@@ -1,4 +1,5 @@
 import { Task, TaskInfo, handleTaskClick, setupPaginationButtons } from './app';
+import { task } from './task';
 
 const containerDiv = document.querySelector('.container');
 const spinner = document.querySelector('.spinner') as HTMLElement;
@@ -52,6 +53,14 @@ export const displayTasks = (tasks: any) => {
     );
 
     setupPaginationButtons(tasks);
+
+    containerDiv?.insertAdjacentHTML(
+        'afterbegin',
+        `<div class="flex justify-center mb-5">
+        <button class="create-task mt-4 cursor-pointer w-4xl self-center justify-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200">Create Task</button>
+    </div>`
+    );
+
     handleTaskClick();
 };
 
@@ -123,7 +132,7 @@ export const createTask = () => {
                 <option value="completed">Completed</option>
             </select>
 
-            <button id="save-task" class="w-full bg-green-600 text-white py-2 rounded-lg mt-4 hover:bg-green-700 transition duration-200">
+            <button class="save-task w-full bg-green-600 text-white py-2 rounded-lg mt-4 hover:bg-green-700 transition duration-200">
                 Save Task
             </button>
         </div>
