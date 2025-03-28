@@ -139,4 +139,17 @@ export const createTask = () => {
     </div>
 </div>`
     );
+
+    document
+        .querySelector('.save-task')
+        ?.addEventListener('click', async () => {
+            let body: object = {
+                title: document.querySelector('#task-title')?.textContent,
+                description: document.querySelector('#task-desc')?.textContent,
+                status: document.querySelector('#task-status'),
+                user_id: 5,
+            };
+            let data = await task(undefined, 'POST', body);
+            console.log(data);
+        });
 };
