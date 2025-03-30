@@ -49,9 +49,13 @@ export const loadTasks = async (page = 1): Promise<TaskResponse | null> => {
     }
 };
 
-        let data = await response.json();
-        return data;
+export const loadTask = async (taskId: number): Promise<TaskInfo | null> => {
+    try {
+        let response = await axios.get<TaskInfo>(`${API_URl}/${taskId}`);
+        console.log(response);
+        return response.data;
     } catch (error) {
         console.log(`An error occured: ${error}`);
+        return null;
     }
 };
