@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { Task, TaskInfo, TaskResponse } from './app';
 const API_URl = 'http://127.0.0.1:8000/api/task';
 
 export const task = async (
@@ -33,16 +35,19 @@ export const task = async (
     }
 };
 
-export const loadTasks = async (page = 1) => {
+export const loadTasks = async (page = 1): Promise<TaskResponse | null> => {
     try {
         let url = `${API_URl}/?page=${page}`;
 
-        let response = await fetch(url);
+        let response = await axios.get<TaskResponse>(url);
+        console.log(response);
 
-        if (!response.ok) {
-            console.log(response.status);
-            return;
-        }
+        return response.data;
+    } catch (error) {
+        console.log(`An error occured: ${error}`);
+        return null;
+    }
+};
 
         let data = await response.json();
         return data;
