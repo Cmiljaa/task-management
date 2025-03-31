@@ -1,14 +1,15 @@
-import { loadTasks, task } from '../ts/task';
-import { displayTask, toggleSpinner, displayTasks, createTask } from './view';
+import { loadTask, loadTasks } from '../ts/task';
+import { displayTask, toggleSpinner, displayTasks } from './view';
 
 let prevPageBtn: HTMLButtonElement;
 let nextPageBtn: HTMLButtonElement;
 
 export interface Task {
-    id: number;
+    id?: number;
     title: string;
-    description: string;
+    description?: string;
     status: string;
+    user_id: number;
 }
 
 export interface TaskInfo extends Task {
@@ -18,12 +19,18 @@ export interface TaskInfo extends Task {
     };
 }
 
+export interface TaskResponse {
+    data: Task[];
+    current_page: number;
+    last_page: number;
+    total: number;
+}
+
 let currentPage = 1;
 
 window.addEventListener('load', async () => {
-    let tasks = await loadTasks();
     toggleSpinner();
-    displayTasks(tasks);
+    await loadAndDisplayTasks();
     console.log('load');
 });
 
@@ -36,45 +43,33 @@ export const setupPaginationButtons = (tasks: any) => {
 
     prevPageBtn.addEventListener('click', async () => {
         if (currentPage > 1) currentPage--;
-        fetchAndDisplayTasks();
+        loadAndDisplayTasks();
     });
 
     nextPageBtn.addEventListener('click', async () => {
         currentPage++;
-        fetchAndDisplayTasks();
+        loadAndDisplayTasks();
     });
 };
 
-export const handleTaskClick = () => {
-    document.querySelectorAll('.task-button')?.forEach((btn) => {
-        const taskId = Number(
-            btn.closest('.p-2')?.querySelector('.id')?.textContent
-        );
-
-        btn.addEventListener('click', async () => {
-            toggleSpinner();
-            let taskInfo: TaskInfo = await task(taskId);
-            toggleSpinner();
-
-            displayTask(taskInfo);
-            document
-                .querySelector('.tasks')
-                ?.addEventListener('click', async () => fetchAndDisplayTasks());
-        });
-    });
-
-    document.querySelector('.create-task')?.addEventListener('click', () => {
-        createTask();
-        document
-            .querySelector('.tasks')
-            ?.addEventListener('click', async () => fetchAndDisplayTasks());
-    });
-};
-
-const fetchAndDisplayTasks = async () => {
+export const loadAndDisplayTasks = async () => {
     toggleSpinner();
+
     let pageTasks = await loadTasks(currentPage);
+
     toggleSpinner();
+
     await displayTasks(pageTasks);
     console.log(currentPage);
+};
+
+export const loadAndDisplayTask = async (taskId: number) => {
+    toggleSpinner();
+
+    let taskInfo: TaskInfo | null = await loadTask(taskId);
+    if (!taskInfo) return;
+
+    toggleSpinner();
+
+    displayTask(taskInfo);
 };
