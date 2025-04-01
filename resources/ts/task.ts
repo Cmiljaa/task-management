@@ -36,3 +36,16 @@ export const loadTask = async (taskId: number): Promise<TaskInfo | null> => {
         return null;
     }
 };
+
+export const updateTask = async (taskId: number, body: Task) => {
+    try {
+        console.log(body);
+        let url = `${API_URl}/${taskId}`;
+        let response = await axios.put(url, body);
+
+        return response;
+    } catch (error) {
+        console.log(`An error occured: ${error}`);
+        return null;
+    }
+};
