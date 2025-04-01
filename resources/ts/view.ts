@@ -166,3 +166,52 @@ export const displayCreateTask = () => {
 
     document.querySelector('.tasks')?.addEventListener('click', async () => loadAndDisplayTasks());
 };
+
+export const displayEditTask = (taskInfo: TaskInfo) => {
+    if (containerDiv) containerDiv.innerHTML = '';
+
+    containerDiv?.insertAdjacentHTML('beforeend',
+        `<div class="p-6 max-w-screen-lg mx-auto">
+            <button class="tasks inline-block px-4 py-2 text-sm rounded-md bg-blue-600 text-white mb-5 hover:bg-blue-700 transition duration-200">
+                Back to tasks
+            </button>
+            
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 transform transition-all hover:shadow-xl border-2">
+                <div class="p-6">
+
+                    <label class="block text-gray-700 text-sm font-bold mt-4" for="task-title">Title</label>
+                    <input id="task-title" type="text" class="w-full border border-gray-300 rounded-md p-2 mt-1" value="${taskInfo.title}" />
+
+                    <label class="block text-gray-700 text-sm font-bold mt-4" for="task-desc">Description</label>
+                    <textarea id="task-desc" class="w-full border border-gray-300 rounded-md p-2 mt-1">${taskInfo.description}</textarea>
+
+                    <label class="block text-gray-700 text-sm font-bold mt-4" for="task-status">Status</label>
+                    <select id="task-status" class="w-full border border-gray-300 rounded-md p-2 mt-1" value="${taskInfo.status}">
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                    </select>
+
+                    <button class="update-task w-full bg-green-600 text-white py-2 rounded-lg mt-4 hover:bg-green-700 transition duration-200">
+                        Update Task
+                    </button>
+                </div>
+            </div>
+        </div>`);
+
+    document.querySelector('.tasks')?.addEventListener('click', async () => displayTask(taskInfo));
+
+    document.querySelector('.update-task')?.addEventListener('click', async () => {
+            let body: Task = {
+                title: (document.querySelector('#task-title') as HTMLInputElement)?.value,
+                description:(document.querySelector('#task-desc') as HTMLTextAreaElement)?.value ?? undefined,
+                status:(document.querySelector('#task-status') as HTMLSelectElement)?.value ?? 'pending',
+                user_id: taskInfo.id ?? 5,
+            };
+
+            let response = await updateTask(taskInfo.id ?? 5 ,body);
+
+            loadAndDisplayTask(response?.data.id);
+
+            console.log(response, 'VIEW');
+    });
+};
