@@ -1,5 +1,5 @@
 import { loadTask, loadTasks } from './services/taskService';
-import { displayTask, toggleSpinner, displayTasks } from './view';
+import { displayTask, toggleSpinner, displayTasks, displayCreateTask, containerDiv } from './view';
 import { TaskInfo } from './interfaces/TaskInfo';
 import { TaskResponse } from './interfaces/TaskResponse';
 
@@ -23,33 +23,54 @@ export const setupPaginationButtons = (tasks: any) => {
 
     prevPageBtn.addEventListener('click', async () => {
         if (currentPage > 1) currentPage--;
-        loadAndDisplayTasks();
+        await loadAndDisplayTasks();
     });
 
     nextPageBtn.addEventListener('click', async () => {
         currentPage++;
-        loadAndDisplayTasks();
+        await loadAndDisplayTasks();
     });
 };
 
 export const loadAndDisplayTasks = async () => {
     toggleSpinner();
 
-    let pageTasks = await loadTasks(currentPage);
+    let pageTasks: TaskResponse | null = await loadTasks(currentPage);
 
     toggleSpinner();
 
-    await displayTasks(pageTasks);
-    console.log(currentPage);
+    if(!pageTasks)
+    {
+        if (containerDiv) containerDiv.innerHTML = ``;
+
+        containerDiv?.insertAdjacentHTML('beforeend', 
+        `<div class="flex pt-20 justify-center items-center h-screen spinner">
+            <p class="text-red-500 text-center h-screen">Failed to load tasks. Please try again.</p>
+            </div>`);
+    }
+    else
+        displayTasks(pageTasks);
 };
 
 export const loadAndDisplayTask = async (taskId: number) => {
     toggleSpinner();
 
     let taskInfo: TaskInfo | null = await loadTask(taskId);
-    if (!taskInfo) return;
 
     toggleSpinner();
 
-    displayTask(taskInfo);
+
+    if(!taskInfo)
+    {
+        if (containerDiv) containerDiv.innerHTML = ``;
+
+        containerDiv?.insertAdjacentHTML('beforeend', 
+        `<div class="flex pt-20 justify-center items-center h-screen spinner">
+            <p class="text-red-500 text-center h-screen">Failed to load task. Please try again.</p>
+        </div>`);
+
+        return
+    }
+    else
+        displayTask(taskInfo);
 };

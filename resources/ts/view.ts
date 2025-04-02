@@ -2,8 +2,9 @@ import { setupPaginationButtons, loadAndDisplayTask, loadAndDisplayTasks } from 
 import { deleteTask, storeTask, updateTask } from './services/taskService';
 import { Task } from './interfaces/Task';
 import { TaskInfo } from './interfaces/TaskInfo';
+import { TaskResponse } from './interfaces/TaskResponse';
 
-const containerDiv = document.querySelector('.container');
+export const containerDiv = document.querySelector('.container');
 const spinner = document.querySelector('.spinner') as HTMLElement;
 
 export const toggleSpinner = () => {
@@ -11,10 +12,9 @@ export const toggleSpinner = () => {
     containerDiv?.classList.toggle('hidden');
 };
 
-export const displayTasks = (tasks: any) => {
+export const displayTasks = (tasks: TaskResponse) => {
     if (containerDiv) containerDiv.innerHTML = '';
 
-    console.log(tasks);
     tasks.data.forEach((task: Task) => {
         containerDiv?.insertAdjacentHTML('beforeend', 
             `<div class="p-2 max-w-screen-lg mx-auto">
