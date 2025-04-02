@@ -1,5 +1,8 @@
 import axios from 'axios';
-import { Task, TaskInfo, TaskResponse } from './app';
+import { Task } from '../interfaces/Task';
+import { TaskResponse } from '../interfaces/TaskResponse';
+import { TaskInfo } from '../interfaces/TaskInfo';
+
 const API_URl = 'http://127.0.0.1:8000/api/task';
 
 export const storeTask = async (body: Task) => {
@@ -49,3 +52,14 @@ export const updateTask = async (taskId: number, body: Task) => {
         return null;
     }
 };
+
+export const deleteTask = async (taskId: number) => {
+    try {
+        let response = await axios.delete(`${API_URl}/${taskId}`);
+
+        return response.data;
+    } catch (error) {
+        console.log(`An error occured: ${error}`);
+        return null;
+    }
+}

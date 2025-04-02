@@ -1,30 +1,10 @@
-import { loadTask, loadTasks } from '../ts/task';
+import { loadTask, loadTasks } from './services/taskService';
 import { displayTask, toggleSpinner, displayTasks } from './view';
+import { TaskInfo } from './interfaces/TaskInfo';
+import { TaskResponse } from './interfaces/TaskResponse';
 
 let prevPageBtn: HTMLButtonElement;
 let nextPageBtn: HTMLButtonElement;
-
-export interface Task {
-    id?: number;
-    title: string;
-    description?: string;
-    status: string;
-    user_id: number;
-}
-
-export interface TaskInfo extends Task {
-    user: {
-        name: string;
-        email: string;
-    };
-}
-
-export interface TaskResponse {
-    data: Task[];
-    current_page: number;
-    last_page: number;
-    total: number;
-}
 
 let currentPage = 1;
 

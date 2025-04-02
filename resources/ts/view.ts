@@ -1,5 +1,7 @@
-import { Task, TaskInfo, setupPaginationButtons, loadAndDisplayTask, loadAndDisplayTasks } from './app';
-import { storeTask, updateTask } from './task';
+import { setupPaginationButtons, loadAndDisplayTask, loadAndDisplayTasks } from './app';
+import { deleteTask, storeTask, updateTask } from './services/taskService';
+import { Task } from './interfaces/Task';
+import { TaskInfo } from './interfaces/TaskInfo';
 
 const containerDiv = document.querySelector('.container');
 const spinner = document.querySelector('.spinner') as HTMLElement;
