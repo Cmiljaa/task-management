@@ -107,14 +107,25 @@ export const displayTask = (taskInfo: TaskInfo) => {
                 </div>
             </div>
         </div>
-        <button class="edit-task w-full bg-blue-600 text-white py-2 rounded-lg mt-4 hover:bg-blue-700 transition duration-200">
-            Edit Task
-        </button>
+        <div class="flex space-x-4">
+            <button class="edit-task w-full bg-blue-600 text-white py-2 rounded-lg mt-4 hover:bg-blue-700 transition duration-200">
+                Edit Task
+            </button>
+            <button class="delete-task w-full bg-red-600 text-white py-2 rounded-lg mt-4 hover:bg-red-700 transition duration-200">
+                Delete Task
+            </button>
+        </div>
     </div>`
     );
 
     document.querySelector('.edit-task')?.addEventListener('click', async () => {
         displayEditTask(taskInfo);
+    })
+
+    document.querySelector('.delete-task')?.addEventListener('click', async () => {
+        let response = await deleteTask(taskInfo.id ?? 5);
+        loadAndDisplayTasks();
+        flashMessage('success', response.message);
     })
 
     document.querySelector('.tasks')?.addEventListener('click', async () => loadAndDisplayTasks());
@@ -188,9 +199,9 @@ export const displayEditTask = (taskInfo: TaskInfo) => {
                     <textarea id="task-desc" class="w-full border border-gray-300 rounded-md p-2 mt-1">${taskInfo.description}</textarea>
 
                     <label class="block text-gray-700 text-sm font-bold mt-4" for="task-status">Status</label>
-                    <select id="task-status" class="w-full border border-gray-300 rounded-md p-2 mt-1" value="${taskInfo.status}">
-                        <option value="pending">Pending</option>
-                        <option value="completed">Completed</option>
+                    <select id="task-status" class="w-full border border-gray-300 rounded-md p-2 mt-1">
+                        <option value="pending" ${taskInfo.status === 'pending' ? 'selected' : ''}>Pending</option>
+                        <option value="completed" ${taskInfo.status === 'completed' ? 'selected' : ''}>Completed</option>
                     </select>
 
                     <button class="update-task w-full bg-green-600 text-white py-2 rounded-lg mt-4 hover:bg-green-700 transition duration-200">
