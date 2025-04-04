@@ -8,6 +8,9 @@
     @vite(['resources/ts/app.ts', 'resources/css/app.css'])
 </head>
 <body>
+    <div class="message fixed bottom-4 left-4 z-50 w-[90%] max-w-sm sm:w-auto">
+        
+    </div>
 
     <div class="flex justify-center items-center h-screen spinner">
         <img src="/25.gif" alt="Loading...">

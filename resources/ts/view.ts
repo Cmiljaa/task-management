@@ -3,6 +3,7 @@ import { deleteTask, storeTask, updateTask } from './services/taskService';
 import { Task } from './interfaces/Task';
 import { TaskInfo } from './interfaces/TaskInfo';
 import { TaskResponse } from './interfaces/TaskResponse';
+import { flashMessage } from './services/flashMessageService';
 
 export const containerDiv = document.querySelector('.container');
 const spinner = document.querySelector('.spinner') as HTMLElement;
@@ -171,10 +172,10 @@ export const displayCreateTask = () => {
             };
 
             let response = await storeTask(body);
-
+            
             loadAndDisplayTask(response?.data.id);
 
-            console.log(response, 'VIEW');
+            await flashMessage('success', 'Task created successfully!');
     });
 
     document.querySelector('.tasks')?.addEventListener('click', async () => loadAndDisplayTasks());
@@ -224,6 +225,7 @@ export const displayEditTask = (taskInfo: TaskInfo) => {
             let response = await updateTask(taskInfo.id ?? 5 ,body);
 
             loadAndDisplayTask(response?.data.id);
+            await flashMessage('success', 'Updated task successfully!');
 
             console.log(response, 'VIEW');
     });

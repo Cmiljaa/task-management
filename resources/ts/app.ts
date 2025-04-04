@@ -1,5 +1,5 @@
 import { loadTask, loadTasks } from './services/taskService';
-import { displayTask, toggleSpinner, displayTasks, displayCreateTask, containerDiv } from './view';
+import { displayTask, toggleSpinner, displayTasks, containerDiv } from './view';
 import { TaskInfo } from './interfaces/TaskInfo';
 import { TaskResponse } from './interfaces/TaskResponse';
 
