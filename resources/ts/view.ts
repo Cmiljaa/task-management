@@ -172,10 +172,12 @@ export const displayCreateTask = () => {
             };
 
             let response = await storeTask(body);
-            
-            loadAndDisplayTask(response?.data.id);
 
-            await flashMessage('success', 'Task created successfully!');
+            if(response)
+            {
+                loadAndDisplayTask(response?.data.id);
+                await flashMessage('success', 'Task created successfully!');
+            }
     });
 
     document.querySelector('.tasks')?.addEventListener('click', async () => loadAndDisplayTasks());
@@ -224,9 +226,10 @@ export const displayEditTask = (taskInfo: TaskInfo) => {
 
             let response = await updateTask(taskInfo.id ?? 5 ,body);
 
-            loadAndDisplayTask(response?.data.id);
-            await flashMessage('success', 'Updated task successfully!');
-
-            console.log(response, 'VIEW');
+            if(response)
+            {
+                loadAndDisplayTask(response?.data.id);
+                await flashMessage('success', 'Updated task successfully!');
+            }
     });
 };

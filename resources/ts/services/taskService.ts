@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Task } from '../interfaces/Task';
 import { TaskResponse } from '../interfaces/TaskResponse';
 import { TaskInfo } from '../interfaces/TaskInfo';
+import { flashMessage } from './flashMessageService';
 
 const API_URl = 'http://127.0.0.1:8000/api/task';
 
@@ -11,8 +12,9 @@ export const storeTask = async (body: Task) => {
         let response = await axios.post(API_URl, body);
 
         return response;
-    } catch (error) {
+    } catch (error: any) {
         console.log(`An error occured: ${error}`);
+        flashMessage('error', error.response.data.message)
         return null;
     }
 };
@@ -47,8 +49,9 @@ export const updateTask = async (taskId: number, body: Task) => {
         let response = await axios.put(url, body);
 
         return response;
-    } catch (error) {
+    } catch (error: any) {
         console.log(`An error occured: ${error}`);
+        flashMessage('error', error.response.data.message)
         return null;
     }
 };
