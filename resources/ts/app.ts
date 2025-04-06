@@ -18,8 +18,8 @@ export const setupPaginationButtons = (tasks: any) => {
     prevPageBtn = document.querySelector('#prevButton') as HTMLButtonElement;
     nextPageBtn = document.querySelector('#nextButton') as HTMLButtonElement;
 
-    prevPageBtn.disabled = !tasks.prev_page_url;
-    nextPageBtn.disabled = !tasks.next_page_url;
+    prevPageBtn.disabled = !tasks.links.prev_page_url;
+    nextPageBtn.disabled = !tasks.links.next_page_url;
 
     prevPageBtn.addEventListener('click', async () => {
         if (currentPage > 1) currentPage--;
