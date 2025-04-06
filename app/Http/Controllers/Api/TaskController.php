@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRequest;
+use App\Http\Resources\TaskCollection;
+use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -11,7 +13,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        return Task::paginate(3);
+        return new TaskCollection(Task::paginate(3));
     }
 
     public function store(TaskRequest $request)
@@ -21,7 +23,8 @@ class TaskController extends Controller
 
     public function show(Task $task)
     {
-        return $task->load('user');
+        $task = $task->load('user');
+        return new TaskResource($task);
     }
 
     public function update(TaskRequest $request, Task $task)
